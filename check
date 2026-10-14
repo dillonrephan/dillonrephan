@@ -1,3 +1,20 @@
 #!/bin/sh
 set -eu
-exec python3 -B /home/ice/Projects/cohort/workers/live/project_guard.py --project-root /home/ice/Projects/github-profile "$@"
+cd "$(dirname "$0")"
+git diff --check
+python3 -B - <<'PY'
+from pathlib import Path
+import re
+root = Path.cwd()
+for path in root.rglob('*.md'):
+    if '.git' in path.parts:
+        continue
+    text = path.read_text()
+    for target in re.findall(r'\]\(([^)]+)\)', text):
+        if target.startswith(('https://', '#')):
+            continue
+        resolved = (path.parent / target.split('#')[0]).resolve()
+        assert root in resolved.parents and resolved.is_file(), (path, target)
+    assert '/home/' not in text, 'Do not publish machine-private source paths'
+print('Profile Markdown links and portable content checks passed')
+PY
