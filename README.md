@@ -26,7 +26,7 @@ belong in the same room.
 - [FOR/REST](https://github.com/dillonrephan/forrest) is a read-only Godot spatial
   filesystem prototype: bounded navigation, literal path completion, and a
   filesystem represented as a place rather than only a list.
-- [Canopy](https://github.com/dillonrephan/canopy/tree/visual/perspective-sakura)
+- [Canopy](https://github.com/dillonrephan/canopy)
   explores botanical filesystem navigation in C++ and Qt Quick, with asynchronous
   scanning and explicit partial, inaccessible, and loading states.
 - [QRator](https://github.com/dillonrephan/qrator) is a music-discovery and
